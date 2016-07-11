@@ -9,7 +9,7 @@ In the options, you can choose between hiding or dimming files matching a custom
 
 ## Install
 
-Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/hide-files-on-github/lpnakhpaodhdkleejaehlapdhbgjbddp) or [manually](http://superuser.com/a/247654/6877).
+Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/dim-files-on-github/nihdgihdhlgebmajigjfnplehjnhlebe) or [manually](http://superuser.com/a/247654/6877).
 
 
 ## License
