@@ -1,9 +1,9 @@
 (() => {
 	'use strict';
 
-	window.HideFilesOnGitHub = (() => {
+	window.DimFilesOnGitHub = (() => {
 		const defaults = {
-			hideRegExp: '^\\.|^license|^appveyor\\.yml$'
+			dimRegExp: '^\\.|^license|^appveyor\\.yml$'
 		};
 
 		const api = {

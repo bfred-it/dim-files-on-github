@@ -1,23 +1,9 @@
 'use strict';
 const $ = document.querySelector.bind(document);
 
-let toggleOn = true;
-let hideRegExp;
+let dimRegExp;
 
-function createHtml(str) {
-	const frag = document.createDocumentFragment();
-	const temp = document.createElement('tr');
-
-	temp.innerHTML = str;
-
-	while (temp.firstChild) {
-		frag.appendChild(temp.firstChild);
-	}
-
-	return frag;
-}
-
-function toggleFiles() {
+function dimFiles() {
 	if (!inRootView()) {
 		return;
 	}
@@ -29,9 +15,8 @@ function toggleFiles() {
 		if (el.querySelector('.content a')) {
 			const fileName = el.querySelector('td.content a').innerText;
 
-			if (hideRegExp && hideRegExp.test(fileName)) {
+			if (dimRegExp && dimRegExp.test(fileName)) {
 				el.classList.add('dimmed');
-				el.style.display = toggleOn ? 'none' : 'table-row';
 			}
 		} else if (++i === 1) {
 			// remove top border
@@ -40,58 +25,12 @@ function toggleFiles() {
 	}
 }
 
-function addToggleBtn() {
-	const toggleBtn = createHtml(`
-		<td class="icon"></td>
-		<td class="content">
-			<a href="#" class="hide-files-btn">${label()}</a>
-		</td>
-		<td class="message"></td>
-		<td class="age"></td>
-	`);
-
-	const fileTable = $('.files');
-
-	if ($('.hide-files-btn')) {
-		addToggleBtnEvents();
-		return;
-	}
-
-	if (fileTable && inRootView()) {
-		// insert at the end of the table
-		fileTable.insertBefore(toggleBtn, fileTable.children[0]);
-		addToggleBtnEvents();
-	}
-}
-
 function inRootView() {
 	return !$('tr.up-tree');
 }
 
-function addToggleBtnEvents() {
-	const btn = $('.hide-files-btn');
-
-	if (btn) {
-		btn.addEventListener('click', e => {
-			e.preventDefault();
-			toggleOn = !toggleOn;
-			btn.textContent = label();
-			toggleFiles();
-		});
-	}
-}
-
-function label() {
-	return toggleOn ? 'Show dotfiles' : 'Hide dotfiles';
-}
-
-function trigger() {
-	addToggleBtn();
-	toggleFiles();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-	trigger();
+	dimFiles();
 
 	const container = $('#js-repo-pjax-container');
 
@@ -99,18 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		return;
 	}
 
-	new MutationObserver(trigger).observe(container, {childList: true});
+	new MutationObserver(dimFiles).observe(container, {childList: true});
 
-	window.HideFilesOnGitHub.storage.get((err, items) => {
+	window.DimFilesOnGitHub.storage.get((err, items) => {
 		if (err) {
 			throw err;
 		}
 
-		hideRegExp = items.hideRegExp === '' ? undefined : new RegExp(items.hideRegExp, 'i');
+		dimRegExp = items.dimRegExp === '' ? undefined : new RegExp(items.dimRegExp, 'i');
 
-		window.gitHubInjection(window, () => {
-			addToggleBtnEvents();
-			trigger();
-		});
+		window.gitHubInjection(window, dimFiles);
 	});
 });

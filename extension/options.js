@@ -1,35 +1,35 @@
 'use strict';
-let hideRegExpInput;
+let dimRegExpInput;
 
 document.addEventListener('DOMContentLoaded', () => {
-	hideRegExpInput = document.querySelector('#hideRegExp');
+	dimRegExpInput = document.querySelector('#dimRegExp');
 
 	// Don't allow delimiters in RegExp string
-	hideRegExpInput.addEventListener('input', () => {
-		const value = hideRegExpInput.value;
+	dimRegExpInput.addEventListener('input', () => {
+		const value = dimRegExpInput.value;
 		const nodelimiters = /^\/|\/$/;
 
 		if (nodelimiters.test(value)) {
-			hideRegExpInput.value = hideRegExpInput.value.replace(/^\/|\/$/, '');
+			dimRegExpInput.value = dimRegExpInput.value.replace(/^\/|\/$/, '');
 		}
 	});
 
-	hideRegExpInput.addEventListener('change', saveOptions);
+	dimRegExpInput.addEventListener('change', saveOptions);
 
 	restoreOptions();
 });
 
 function saveOptions() {
-	const hideRegExp = hideRegExpInput.value;
-	window.HideFilesOnGitHub.storage.set({hideRegExp});
+	const dimRegExp = dimRegExpInput.value;
+	window.DimFilesOnGitHub.storage.set({dimRegExp});
 }
 
 function restoreOptions() {
-	window.HideFilesOnGitHub.storage.get((err, items) => {
+	window.DimFilesOnGitHub.storage.get((err, items) => {
 		if (err) {
 			throw err;
 		}
 
-		hideRegExpInput.value = items.hideRegExp;
+		dimRegExpInput.value = items.dimRegExp;
 	});
 }
