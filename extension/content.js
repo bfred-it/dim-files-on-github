@@ -40,33 +40,6 @@ function toggleFiles() {
 	}
 }
 
-function reorderFiles() {
-	if (!inRootView()) {
-		return;
-	}
-
-	const rows = document.querySelectorAll('.files .js-navigation-item');
-	const dotted = document.createDocumentFragment();
-	const normal = document.createDocumentFragment();
-
-	for (const el of rows) {
-		const filename = el.querySelector('.content a').innerText;
-
-		if (hideRegExp && hideRegExp.test(filename)) {
-			dotted.appendChild(el);
-		} else {
-			normal.appendChild(el);
-		}
-	}
-
-	const tableBody = $('.files tbody');
-
-	if (tableBody) {
-		tableBody.appendChild(dotted);
-		tableBody.appendChild(normal);
-	}
-}
-
 function addToggleBtn() {
 	const toggleBtn = createHtml(`
 		<td class="icon"></td>
@@ -115,12 +88,10 @@ function label() {
 function trigger() {
 	addToggleBtn();
 	toggleFiles();
-	reorderFiles();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	addToggleBtn();
-	toggleFiles();
+	trigger();
 
 	const container = $('#js-repo-pjax-container');
 
