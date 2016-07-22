@@ -1,4 +1,4 @@
-# Dim Files on GitHub
+# Dim Files on GitHub [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/nihdgihdhlgebmajigjfnplehjnhlebe.svg)](https://chrome.google.com/webstore/detail/dim-files-on-github/nihdgihdhlgebmajigjfnplehjnhlebe) [![Auto deployment via travis](https://img.shields.io/badge/publishing-automated-blue.svg)](https://travis-ci.org/bfred-it/dim-files-on-github)
 
 > Chrome extension - Dim dotfiles (or any file) in the GitHub file browser
 
