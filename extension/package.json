@@ -1,9 +1,11 @@
 {
   "scripts": {
     "test": "xo",
+    "version-from-git-tag": "dot-json manifest.json version $(git describe --abbrev=0 --tags | sed s/v//)",
     "release": "webstore upload --source=. --auto-publish"
   },
   "devDependencies": {
+    "dot-json": "^1.0.3",
     "chrome-webstore-upload-cli": "^1.0.0",
     "xo": "*"
   },
