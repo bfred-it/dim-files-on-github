@@ -7,7 +7,7 @@ before_install:
   - cd extension
 deploy:
   provider: script
-  script: npm run release
+  script: npm run version-from-git-tag; npm run release
   on:
     branch: master
     tags: true
